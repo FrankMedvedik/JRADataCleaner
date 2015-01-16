@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="eb022db6-3567-4478-9396-652d9c2a1eb0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://personator.melissadata.net/v3/SOAP/ContactVerify" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ContactVerify1.disco" MetadataType="Disco" ID="916ffbc2-8986-41ae-8bb9-c8685a19c181" SourceId="1" SourceUrl="https://personator.melissadata.net/v3/SOAP/ContactVerify?disco" />
+    <MetadataFile FileName="ContactVerify3.xsd" MetadataType="Schema" ID="1145768c-052d-4b35-81e5-512882162041" SourceId="1" SourceUrl="https://personator.melissadata.net/v3/SOAP/ContactVerify?xsd=xsd2" />
+    <MetadataFile FileName="ContactVerify31.xsd" MetadataType="Schema" ID="cc73b3e6-79d6-4871-b5e8-30ed9eff9429" SourceId="1" SourceUrl="https://personator.melissadata.net/v3/SOAP/ContactVerify?xsd=xsd0" />
+    <MetadataFile FileName="ContactVerify32.xsd" MetadataType="Schema" ID="51226675-f5a8-4453-92b9-60da662a3de2" SourceId="1" SourceUrl="https://personator.melissadata.net/v3/SOAP/ContactVerify?xsd=xsd1" />
+    <MetadataFile FileName="ServicemdContactVerifySOAP1.wsdl" MetadataType="Wsdl" ID="3d342ffe-d58d-45d7-881b-bfd48a9d2de0" SourceId="1" SourceUrl="https://personator.melissadata.net/v3/SOAP/ContactVerify?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
