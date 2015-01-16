@@ -11,7 +11,7 @@ namespace JRAMelissaWrapper
     public class DataCleaner : IDataClean
     {
         private const int MaxArraySize = 100;
-        private const string CustomerId = "98867798";
+        private const string CustomerId = "CHANGEMEDAVE";
 
         private static readonly ILog Logger =
             LogManager.GetLogger(typeof (DataCleaner));
