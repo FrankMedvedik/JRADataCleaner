@@ -31,29 +31,35 @@ namespace ConsoleApplication1
             /* 
              * process one record             
              */
-
-            OutputStreetAddress o;
-            var b = w.VerifyAndCleanAddress(i, out o);
+            try
             {
-                Logger.Debug("status: " + b);
-                Logger.Debug("Result Codes: " + o.Results.ToString());
-                Logger.Debug("Errors: " + o.Errors.ToString());
-                Logger.Debug("Output Address: " + o.ToString());
+                OutputStreetAddress o;
+                var b = w.VerifyAndCleanAddress(i, out o);
+                {
+                    Logger.Debug("status: " + b);
+                    Logger.Debug("Result Codes: " + o.Results.ToString());
+                    Logger.Debug("Errors: " + o.Errors.ToString());
+                    Logger.Debug("Output Address: " + o.ToString());
+                }
+
+                i.PostalCode = "";
+                var inArray = new[] { i };
+
+                /* 
+                * process arrary of records             
+                */
+
+                var outArray = w.VerifyAndCleanAddress(inArray);
+                foreach (var r in outArray)
+                {
+                    Logger.Debug("Result Codes: " + r.Results.ToString());
+                    Logger.Debug("Errors: " + r.Errors.ToString());
+                    Logger.Debug("Output Address: " + r.ToString());
+                }
             }
-
-            i.PostalCode = "";
-            var inArray = new[] {i};
-
-            /* 
-            * process arrary of records             
-            */
-
-            var outArray = w.VerifyAndCleanAddress(inArray);
-            foreach (var r in outArray)
+            catch(Exception e)
             {
-                Logger.Debug("Result Codes: " + r.Results.ToString());
-                Logger.Debug("Errors: " + r.Errors.ToString());
-                Logger.Debug("Output Address: " + r.ToString());
+                Logger.Error(e.ToString());
             }
         }
 

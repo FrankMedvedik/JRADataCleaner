@@ -70,9 +70,9 @@
     <None Include="Service References\Personator\ServicemdContactVerifySOAP.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JRAMelissaWrapper\JRADataClean.csproj">
+    <ProjectReference Include="..\DataCleaner\DataClean.csproj">
       <Project>{0e725976-76c4-4c29-aa8a-28d020c0f2bf}</Project>
-      <Name>JRADataClean</Name>
+      <Name>DataClean</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -81,7 +81,11 @@ namespace JRAMelissaWrapper
                 }
                 else
                 {
-                    throw new Exception(GetTransmissionErrors().ToString());
+                    var t = GetTransmissionErrors();
+                    string exText = null;
+                    foreach (var a in t)
+                        exText += a.ToString() + Environment.NewLine;
+                    throw new Exception(exText);
                 }
             }
             catch (Exception ex)
