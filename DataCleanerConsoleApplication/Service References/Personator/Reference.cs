@@ -16,10 +16,10 @@ namespace ConsoleApplication1.Personator {
     public interface ServicemdContactVerifySOAP {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerify", ReplyAction="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerifyResponse")]
-        JRAMelissaWrapper.Personator.Response doContactVerify(JRAMelissaWrapper.Personator.Request Request);
+        DataClean.Personator.Response doContactVerify(DataClean.Personator.Request Request);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerify", ReplyAction="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerifyResponse")]
-        System.Threading.Tasks.Task<JRAMelissaWrapper.Personator.Response> doContactVerifyAsync(JRAMelissaWrapper.Personator.Request Request);
+        System.Threading.Tasks.Task<DataClean.Personator.Response> doContactVerifyAsync(DataClean.Personator.Request Request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,11 +49,11 @@ namespace ConsoleApplication1.Personator {
                 base(binding, remoteAddress) {
         }
         
-        public JRAMelissaWrapper.Personator.Response doContactVerify(JRAMelissaWrapper.Personator.Request Request) {
+        public DataClean.Personator.Response doContactVerify(DataClean.Personator.Request Request) {
             return base.Channel.doContactVerify(Request);
         }
         
-        public System.Threading.Tasks.Task<JRAMelissaWrapper.Personator.Response> doContactVerifyAsync(JRAMelissaWrapper.Personator.Request Request) {
+        public System.Threading.Tasks.Task<DataClean.Personator.Response> doContactVerifyAsync(DataClean.Personator.Request Request) {
             return base.Channel.doContactVerifyAsync(Request);
         }
     }

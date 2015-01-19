@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JRAMelissaWrapper.Personator;
+using DataClean.Personator;
 
-namespace JRAMelissaWrapper.Personator
+namespace DataClean.Personator
 {
     public partial class RequestRecord 
     {

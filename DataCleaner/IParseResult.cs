@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JRAMelissaWrapper
+namespace DataClean
 {
     public interface IParseResult
     {

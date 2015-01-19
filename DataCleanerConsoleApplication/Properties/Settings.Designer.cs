@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DataClean.Properties {
+namespace ConsoleApplication1.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,9 +26,9 @@ namespace DataClean.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("98867798")]
-        public string ClientID {
+        public string PersonatorClientID {
             get {
-                return ((string)(this["ClientID"]));
+                return ((string)(this["PersonatorClientID"]));
             }
         }
         

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace JRAMelissaWrapper.Personator {
+namespace DataClean.Personator {
     using System.Runtime.Serialization;
     using System;
     
@@ -35,7 +35,7 @@ namespace JRAMelissaWrapper.Personator {
         private string OptionsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private JRAMelissaWrapper.Personator.RequestRecord[] RecordsField;
+        private DataClean.Personator.RequestRecord[] RecordsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TransmissionReferenceField;
@@ -103,7 +103,7 @@ namespace JRAMelissaWrapper.Personator {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public JRAMelissaWrapper.Personator.RequestRecord[] Records {
+        public DataClean.Personator.RequestRecord[] Records {
             get {
                 return this.RecordsField;
             }
@@ -414,7 +414,7 @@ namespace JRAMelissaWrapper.Personator {
         }
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
+        
         protected void RaisePropertyChanged(string propertyName) {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
@@ -433,7 +433,7 @@ namespace JRAMelissaWrapper.Personator {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private JRAMelissaWrapper.Personator.ResponseRecord[] RecordsField;
+        private DataClean.Personator.ResponseRecord[] RecordsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TotalRecordsField;
@@ -458,7 +458,7 @@ namespace JRAMelissaWrapper.Personator {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public JRAMelissaWrapper.Personator.ResponseRecord[] Records {
+        public DataClean.Personator.ResponseRecord[] Records {
             get {
                 return this.RecordsField;
             }
@@ -1958,19 +1958,19 @@ namespace JRAMelissaWrapper.Personator {
     public interface ServicemdContactVerifySOAP {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerify", ReplyAction="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerifyResponse")]
-        JRAMelissaWrapper.Personator.Response doContactVerify(JRAMelissaWrapper.Personator.Request Request);
+        DataClean.Personator.Response doContactVerify(DataClean.Personator.Request Request);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerify", ReplyAction="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerifyResponse")]
-        System.Threading.Tasks.Task<JRAMelissaWrapper.Personator.Response> doContactVerifyAsync(JRAMelissaWrapper.Personator.Request Request);
+        System.Threading.Tasks.Task<DataClean.Personator.Response> doContactVerifyAsync(DataClean.Personator.Request Request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ServicemdContactVerifySOAPChannel : JRAMelissaWrapper.Personator.ServicemdContactVerifySOAP, System.ServiceModel.IClientChannel {
+    public interface ServicemdContactVerifySOAPChannel : DataClean.Personator.ServicemdContactVerifySOAP, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServicemdContactVerifySOAPClient : System.ServiceModel.ClientBase<JRAMelissaWrapper.Personator.ServicemdContactVerifySOAP>, JRAMelissaWrapper.Personator.ServicemdContactVerifySOAP {
+    public partial class ServicemdContactVerifySOAPClient : System.ServiceModel.ClientBase<DataClean.Personator.ServicemdContactVerifySOAP>, DataClean.Personator.ServicemdContactVerifySOAP {
         
         public ServicemdContactVerifySOAPClient() {
         }
@@ -1991,11 +1991,11 @@ namespace JRAMelissaWrapper.Personator {
                 base(binding, remoteAddress) {
         }
         
-        public JRAMelissaWrapper.Personator.Response doContactVerify(JRAMelissaWrapper.Personator.Request Request) {
+        public DataClean.Personator.Response doContactVerify(DataClean.Personator.Request Request) {
             return base.Channel.doContactVerify(Request);
         }
         
-        public System.Threading.Tasks.Task<JRAMelissaWrapper.Personator.Response> doContactVerifyAsync(JRAMelissaWrapper.Personator.Request Request) {
+        public System.Threading.Tasks.Task<DataClean.Personator.Response> doContactVerifyAsync(DataClean.Personator.Request Request) {
             return base.Channel.doContactVerifyAsync(Request);
         }
     }

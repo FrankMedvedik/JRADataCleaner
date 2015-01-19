@@ -1,4 +1,4 @@
-﻿namespace JRAMelissaWrapper
+﻿namespace DataClean
 {
     public class InputStreetAddress : IInputStreetAddress
     {

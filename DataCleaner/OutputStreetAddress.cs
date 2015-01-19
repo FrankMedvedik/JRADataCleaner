@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace JRAMelissaWrapper
+namespace DataClean
 {
     public class OutputStreetAddress : IOutputStreetAddress
     {

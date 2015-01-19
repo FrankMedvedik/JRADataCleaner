@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace JRAMelissaWrapper
+namespace DataClean
 {
-    public class ParseResult : IParseResult
+    public class ParseResult : IParseResult 
     {
         public String Code { get; set; }
         public String ShortDescription { get; set; }

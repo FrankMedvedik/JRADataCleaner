@@ -7,8 +7,8 @@
     <ProjectGuid>{0E725976-76C4-4C29-AA8A-28D020C0F2BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JRAMelissaWrapper</RootNamespace>
-    <AssemblyName>JRAMelissaWrapper</AssemblyName>
+    <RootNamespace>DataClean</RootNamespace>
+    <AssemblyName>DataClean</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,6 +38,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -49,9 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\PersonatorExtentions.cs" />
+    <Compile Include="IDataCleaner.cs" />
     <Compile Include="IInputStreetAddress.cs" />
     <Compile Include="InputStreetAddress.cs" />
-    <Compile Include="IDataClean.cs" />
     <Compile Include="IOutputStreetAddress.cs" />
     <Compile Include="IParseResult.cs" />
     <Compile Include="ParseResultDictionary.cs" />
@@ -92,7 +93,7 @@
     <None Include="Service References\Personator\ContactVerify2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\Personator\JRAMelissaWrapper.Personator.Response.datasource">
+    <None Include="Service References\Personator\DataClean.Personator.Response.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\Personator\ServicemdContactVerifySOAP.wsdl" />

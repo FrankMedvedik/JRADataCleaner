@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using System.Linq;
-using JRAMelissaWrapper.Personator;
+using DataClean.Personator;
 using log4net;
 using Newtonsoft.Json;
 
-namespace JRAMelissaWrapper
+namespace DataClean 
 {
-    public class DataCleaner : IDataClean
+    public class DataCleaner : IDataCleaner
     {
         private const int MaxArraySize = 100;
-        private const string CustomerId = "CHANGEMEDAVE";
-
         private static readonly ILog Logger =
             LogManager.GetLogger(typeof (DataCleaner));
 
@@ -21,30 +21,51 @@ namespace JRAMelissaWrapper
         private ServicemdContactVerifySOAPClient _action;
         private int _arraysize;
         private ParseResultDictionary _msgDict; 
+        
 
-        public DataCleaner()
+        public DataCleaner(NameValueCollection c)
         {
-            Initialize();
+            Initialize(c);
         }
 
-        private void Initialize()
+        private void Initialize(NameValueCollection c)
         {
+            String ClientID =c["PersonatorClientID"];
+            String PersonatorActions = c["PersonatorActions"];
+            String PersonatorOptions = c["PersonatorOptions"];
+
+            if (ClientID == null)
+            {
+                var t = "ClientID Not Specified in app config file";
+                Logger.Error(t);
+                throw (new Exception(t));
+            }
+
+            if (PersonatorActions == null)
+            {
+                var u = "http://wiki.melissadata.com/index.php?title=Personator%3ABest_Practices";
+                var t = String.Format("No actions specified in the app config file see: {0} ", u);
+                Logger.Error(t);
+                throw (new Exception(t));
+            }
+
+            Logger.Info(String.Format("Melissa ClientId {0}", ClientID));
+            Logger.Info(String.Format("Melissa Personator Actions - {0}", PersonatorActions));
+            Logger.Info(String.Format("Melissa Personator Options - {0}", PersonatorOptions));
+
+
             _req = new Request();
+            _req.Actions = PersonatorActions;
+            _req.Options = PersonatorOptions;
             _resp = new Response();
             _action = new ServicemdContactVerifySOAPClient(); //"BasicHttpBinding_IService");
-            _req = new Request {CustomerID = CustomerId, TransmissionReference = "JRA Personator SOAP Web Service "};
-            _arraysize = 1;
-            _req.Records = new RequestRecord[_arraysize];
+            _req = new Request {CustomerID = ClientID, TransmissionReference = "JRA Personator SOAP Web Service "};
             _msgDict = new ParseResultDictionary();
         }
 
         public Boolean VerifyAndCleanAddress(InputStreetAddress inA, out OutputStreetAddress outA)
         {
-            /* use defaults and process 1 record */
-            _arraysize = 1;
-            ActionCheck = true;
-            ActionVerify = true;
-
+            /* use settings from config file and process 1 record */
             var iArray = new[] {inA};
             var oArray = VerifyAndCleanAddress(iArray);
             outA = oArray[0];
@@ -56,18 +77,16 @@ namespace JRAMelissaWrapper
             if (inputAddressArray.Length > MaxArraySize)
                 throw new Exception(String.Format("Too Many Items in Request maximum number is {0}", MaxArraySize));
             _arraysize = inputAddressArray.Length;
-
-            /* actions shuld be set up 1st! */
-            //ActionCheck = true;
-            //ActionVerify = true;
-
-            _req.Options = SetActions();
-            var x = 0;
+             var rra = new RequestRecord[_arraysize];
+             var x = 0;
             foreach (var i in inputAddressArray)
-                _req.Records[x++] = new RequestRecord(i);
+                rra[x++] = new RequestRecord(i);
+            _req.Records = rra;
 
             try
             {
+                // the transmission results tell us if we got far enough to process records. if it is blank the answer is yes 
+                // if we got transmission results we have a broke - connection and or configuration 
                 _resp = _action.doContactVerify(_req);
                 if (_resp.TransmissionResults.Trim() == "")
                 {
@@ -79,14 +98,11 @@ namespace JRAMelissaWrapper
                     }
                     return o;
                 }
-                else
-                {
-                    var t = GetTransmissionErrors();
-                    string exText = null;
-                    foreach (var a in t)
-                        exText += a.ToString() + Environment.NewLine;
-                    throw new Exception(exText);
-                }
+                var t = GetTransmissionErrors();
+                string exText = null;
+                foreach (var a in t)
+                    exText += a.ToString() + Environment.NewLine;
+                throw new Exception(exText);
             }
             catch (Exception ex)
             {
@@ -99,25 +115,6 @@ namespace JRAMelissaWrapper
         private IParseResult[] GetTransmissionErrors()
         {
             return _msgDict.LookupCodeList(_resp.TransmissionResults.Split(','));
-        }
-
-        public Boolean ActionCheck { get; set; }
-        public Boolean ActionVerify { get; set; }
-        public Boolean ActionAppend { get; set; }
-        public Boolean ActionMove { get; set; }
-
-        private string SetActions()
-        {
-            string actions = "";
-
-            if (ActionCheck) actions += "Check,";
-            if (ActionVerify) actions += "Verify,";
-            if (ActionAppend) actions += "Append,";
-            if (ActionMove) actions += "Move,";
-
-            actions = actions.TrimEnd(',');
-
-            return actions;
         }
 
         private OutputStreetAddress ProcessResponseRecord(ResponseRecord respRec)

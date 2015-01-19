@@ -16,7 +16,7 @@ namespace JRADataCleanUI.Personator {
     public interface ServicemdContactVerifySOAP {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerify", ReplyAction="urn:MelissaDataPersonator/ServicemdContactVerifySOAP/doContactVerifyResponse")]
-        JRAMelissaWrapper.Personator.Response doContactVerify(JRAMelissaWrapper.Personator.Request Request);
+        DataClean.Personator.Response doContactVerify(DataClean.Personator.Request Request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -46,7 +46,7 @@ namespace JRADataCleanUI.Personator {
                 base(binding, remoteAddress) {
         }
         
-        public JRAMelissaWrapper.Personator.Response doContactVerify(JRAMelissaWrapper.Personator.Request Request) {
+        public DataClean.Personator.Response doContactVerify(DataClean.Personator.Request Request) {
             return base.Channel.doContactVerify(Request);
         }
     }

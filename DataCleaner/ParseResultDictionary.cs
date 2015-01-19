@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using log4net;
 using Newtonsoft.Json;
 
-namespace JRAMelissaWrapper
+namespace DataClean
 {
     public class ParseResultDictionary : Dictionary<string, ParseResult>
     {
