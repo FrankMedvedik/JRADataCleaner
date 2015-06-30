@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataClean
 {
-    public interface IOutputStreetAddress
+    public interface IOutputStreetAddress : IDataErrorInfo
     {
         string AddressDeliveryInstallation { get; set; }
         string AddressExtras { get; set; }

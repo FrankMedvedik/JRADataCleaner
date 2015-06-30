@@ -86,6 +86,13 @@ namespace DataClean
         public string PrivateMailBox { get; set; }
         public string RecordExtras { get; set; }
         public IParseResult[] Results { get; set; }
+        public IParseResult[] Warnings { get
+            {
+                return Results.Any()
+                    ? Results.Where(x => !x.FatalAddressError).ToArray()
+                    : Results; 
+            }
+        }
         public IParseResult[] Errors
         {
             get
@@ -107,5 +114,34 @@ namespace DataClean
         {
             return string.Format("{0} {1} {2} {3} {4} {5}",  NameFull, AddressLine1, AddressLine2, City, State, PostalCode);
         }
+
+        public string this[string columnName]
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string Error
+        {
+            get
+            {
+                return Errors.ToString();
+            }
+        }
+        public string Warning
+        {
+            get
+            {
+                return Warnings.ToString();
+            }
+        }
+
+        public string ParseResults
+        {
+            get
+            {
+                return Results.ToString();
+            }
+        }
+
     }
 }
