@@ -88,18 +88,14 @@ namespace DataClean
         public IParseResult[] Results { get; set; }
         public IParseResult[] Warnings { get
             {
-                return Results.Any()
-                    ? Results.Where(x => !x.FatalAddressError).ToArray()
-                    : Results; 
+                return Results; 
             }
         }
         public IParseResult[] Errors
         {
             get
             {
-                return Results.Any()
-                    ? Results.Where(x => x.FatalAddressError).ToArray()
-                    : Results; 
+                return Results; 
             }
         }
         public string Salutation { get; set; }

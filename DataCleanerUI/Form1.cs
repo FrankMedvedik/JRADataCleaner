@@ -62,5 +62,9 @@ namespace JRADataCleanUI
             tabControl1.SelectedTab = tabControl1.TabPages[1];
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

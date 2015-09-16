@@ -69,16 +69,18 @@ namespace DataClean
             var iArray = new[] {inA};
             var oArray = VerifyAndCleanAddress(iArray);
             outA = oArray[0];
-            return !oArray[0].Errors.Any();
+            return true;// !oArray[0].Errors.Any();
         }
 
         public OutputStreetAddress[] VerifyAndCleanAddress(InputStreetAddress[] inputAddressArray)
         {
+
+            
             if (inputAddressArray.Length > MaxArraySize)
                 throw new Exception(String.Format("Too Many Items in Request maximum number is {0}", MaxArraySize));
             _arraysize = inputAddressArray.Length;
-             var rra = new RequestRecord[_arraysize];
-             var x = 0;
+            var rra = new RequestRecord[_arraysize];
+            var x = 0;
             foreach (var i in inputAddressArray)
                 rra[x++] = new RequestRecord(i);
             _req.Records = rra;
