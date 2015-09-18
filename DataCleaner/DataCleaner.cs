@@ -90,21 +90,21 @@ namespace DataClean
                 // the transmission results tell us if we got far enough to process records. if it is blank the answer is yes 
                 // if we got transmission results we have a broke - connection and or configuration 
                 _resp = _action.doContactVerify(_req);
-                if (_resp.TransmissionResults.Trim() == "")
+                //if (_resp.TransmissionResults.Trim() == "" || )
+                //{
+                var o = new OutputStreetAddress[_resp.Records.Length];
+                int i = 0;
+                foreach (var r in _resp.Records)
                 {
-                    var o = new OutputStreetAddress[_resp.Records.Length];
-                    int i = 0;
-                    foreach (var r in _resp.Records)
-                    {
-                        o[i++] = ProcessResponseRecord(r);
-                    }
-                    return o;
+                    o[i++] = ProcessResponseRecord(r);
                 }
-                var t = GetTransmissionErrors();
-                string exText = null;
-                foreach (var a in t)
-                    exText += a.ToString() + Environment.NewLine;
-                throw new Exception(exText);
+                return o;
+                //}
+                //var t = GetTransmissionErrors();
+                //string exText = null;
+                //foreach (var a in t)
+                //    exText += a.ToString() + Environment.NewLine;
+                //throw new Exception(exText);
             }
             catch (Exception ex)
             {
