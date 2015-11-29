@@ -1,7 +1,21 @@
-﻿namespace DataClean
+﻿using DataClean.Interfaces;
+using DataClean.Services;
+
+namespace DataClean.Models
 {
     public class InputStreetAddress : IInputStreetAddress
     {
+
+        public int ID
+        {
+            get
+            {
+                return HashHelperSvc.GetHashCode(State, City, PostalCode, AddressLine1, AddressLine2,
+                    EmailAddress, PhoneNumber, LastName, FirstName);
+            }
+        }
+
+        public string RecordID { get { return ID.ToString(); } }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string City { get; set; }

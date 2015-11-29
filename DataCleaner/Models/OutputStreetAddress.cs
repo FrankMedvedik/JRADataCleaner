@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataClean.Interfaces;
 
-namespace DataClean
+namespace DataClean.Models
 {
     public class OutputStreetAddress : IOutputStreetAddress
     {
-        private List<IParseResult> _errors;
-
         public string AddressDeliveryInstallation { get; set; }
         public string AddressExtras { get; set; }
         public string AddressHouseNumber { get; set; }
@@ -55,6 +54,7 @@ namespace DataClean
         public string Gender { get; set; }
         public string Gender2 { get; set; }
         public string HouseholdIncome { get; set; }
+        public int ID { get; set; }
         public string Latitude { get; set; }
         public string LengthOfResidence { get; set; }
         public string Longitude { get; set; }
@@ -85,19 +85,14 @@ namespace DataClean
         public string PresenceOfChildren { get; set; }
         public string PrivateMailBox { get; set; }
         public string RecordExtras { get; set; }
-        public IParseResult[] Results { get; set; }
-        public IParseResult[] Warnings { get
-            {
-                return Results; 
-            }
-        }
-        public IParseResult[] Errors
-        {
+        public List<ParseResult> Results { get; set; }
+        public string aaaResultsAsString {
             get
             {
-                return Results; 
+                return Results.Aggregate("", (current, r) => current + (r.ToString() + Environment.NewLine));
             }
         }
+
         public string Salutation { get; set; }
         public string State { get; set; }
         public string StateName { get; set; }
@@ -105,8 +100,36 @@ namespace DataClean
         public string TopLevelDomain { get; set; }
         public string UTC { get; set; }
         public string UrbanizationName { get; set; }
-        public Boolean AddressOk { get; set; }
-        public override string ToString()
+        public Boolean OkComplete { get { return OkMailingAddress && OkEmailAddress && OkPhone && !Errors.Any(); } }
+        public Boolean OkMailingAddress {
+            get
+            {
+                return (Results.Any(x => x.Code == ParseResultDictionary.VALID_STREET_ADDRESS_CODE) && (!HasNewPostalCode || !HasNewStateCode)); 
+                
+            }
+        }
+
+        public Boolean HasNewPostalCode
+        {
+            get
+            {
+                return (Results.Any(x => x.Code == ParseResultDictionary.NEW_POSTAL_CODE));
+
+            }
+        }
+        public Boolean HasNewStateCode
+        {
+            get
+            {
+                return (Results.Any(x => x.Code == ParseResultDictionary.NEW_STATE_CODE));
+
+            }
+        }
+
+        public Boolean OkEmailAddress { get { return (Results.Any(x => x.Code == ParseResultDictionary.VALID_EMAIL_ADDRESS_CODE)); } } 
+
+        public Boolean OkPhone { get { return (Results.Any(x => x.Code == ParseResultDictionary.VALID_PHONE_CODE)); } }
+        public  string SuggestedAddress()
         {
             return string.Format("{0} {1} {2} {3} {4} {5}",  NameFull, AddressLine1, AddressLine2, City, State, PostalCode);
         }
@@ -138,6 +161,30 @@ namespace DataClean
                 return Results.ToString();
             }
         }
+        
+
+        public List<ParseResult> Errors
+        {
+            get
+            {
+                return Results.Where(x => x.Type == ParseResult.ERROR).ToList();
+            }
+        }
+
+        public List<ParseResult> Warnings
+        {
+            get
+            {
+                return Results.Where(x => x.Type == ParseResult.WARN).ToList(); 
+            }
+        }
+
+        public List<ParseResult> Informational
+        {
+            get
+            {
+                return Results.Where(x => x.Type == ParseResult.INFO).ToList(); }
+            }
 
     }
-}
+   }

@@ -1,7 +1,9 @@
-namespace DataClean
+namespace DataClean.Interfaces
 {
     public interface IInputStreetAddress
     {
+        int ID { get; }
+        string RecordID { get;  }
         string AddressLine1 { get; set; }
         string AddressLine2 { get; set; }
         string City { get; set; }

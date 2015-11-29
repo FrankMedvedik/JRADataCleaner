@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataClean.Interfaces;
+using DataClean.Models;
 using DataClean.Personator;
 
 namespace DataClean.Personator
@@ -13,6 +15,7 @@ namespace DataClean.Personator
 
         public RequestRecord(IInputStreetAddress a)
         {
+            RecordID = a.RecordID;
             AddressLine1 = a.AddressLine1;
             AddressLine2 = a.AddressLine2;
             City = a.City;
@@ -25,6 +28,7 @@ namespace DataClean.Personator
             PhoneNumber = a.PhoneNumber;
             PostalCode = a.PostalCode;
             State = a.State;
+             
         }
     }
 

@@ -2,6 +2,8 @@
 using System.Configuration;
 using System.Windows.Forms;
 using DataClean;
+using DataClean.DataCleaner;
+using DataClean.Models;
 
 namespace JRADataCleanUI
 {
@@ -34,8 +36,26 @@ namespace JRADataCleanUI
             OutputStreetAddress o;
             try
             {
-                if(!dataCleaner.VerifyAndCleanAddress(i, out o))
-                    MessageBox.Show(o.Errors.ToString());
+                string s = "ERRORS" + Environment.NewLine;
+                if (!dataCleaner.VerifyAndCleanAddress(i, out o))
+                {
+
+                    foreach (var err in o.Errors)
+                        s += (err.AlternateAddressExists ? "yes | " : "no | ") + err.LongDescription + Environment.NewLine;
+
+                    s += Environment.NewLine + "WARNINGS" + Environment.NewLine;
+
+                    foreach (var err in o.Warnings)
+                        s += (err.AlternateAddressExists ? "yes | " : "no | ") + err.LongDescription + Environment.NewLine;
+
+                    s += Environment.NewLine + "Informational" + Environment.NewLine;
+
+                    foreach (var err in o.Informational)
+                        s += err.LongDescription + Environment.NewLine;
+
+                }
+              //  MessageBox.Show(s);
+                txtOutResults.Text = s;
             }
             catch (Exception ex)
             {
@@ -54,11 +74,8 @@ namespace JRADataCleanUI
             txtOutFullName.Text = o.NameFull;
             txtOutPhone.Text = o.PhoneNumber;
             txtOutState.Text = o.State;
+            txtOutPostal.Text = o.PostalCode;
 
-            foreach (var a in o.Results)
-            {
-                txtOutResults.Text += a.ToString() + Environment.NewLine;
-            }
             tabControl1.SelectedTab = tabControl1.TabPages[1];
         }
 

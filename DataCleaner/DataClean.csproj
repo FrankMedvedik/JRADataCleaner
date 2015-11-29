@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataClean</RootNamespace>
     <AssemblyName>DataClean</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\coopcheck\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\coopcheck\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -50,12 +59,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\ResponseToOutputStreetAddressConverter.cs" />
+    <Compile Include="DataCleaner\DataCleanEventFactory.cs" />
+    <Compile Include="Interfaces\IDataCleanEventFactory.cs" />
+    <Compile Include="Repository.Mgr\DataCleanRespository.cs" />
+    <Compile Include="Interfaces\IDataCleanRepository.cs" />
+    <Compile Include="Interfaces\IDataCleanEvent.cs" />
+    <Compile Include="Models\DataCleanEvent.cs" />
     <Compile Include="Extensions\PersonatorExtentions.cs" />
-    <Compile Include="IDataCleaner.cs" />
-    <Compile Include="IInputStreetAddress.cs" />
-    <Compile Include="InputStreetAddress.cs" />
-    <Compile Include="IOutputStreetAddress.cs" />
-    <Compile Include="IParseResult.cs" />
+    <Compile Include="Services\HashHelperSvc.cs" />
+    <Compile Include="Interfaces\IDataCleaner.cs" />
+    <Compile Include="Interfaces\IInputStreetAddress.cs" />
+    <Compile Include="Models\InputStreetAddress.cs" />
+    <Compile Include="Interfaces\IOutputStreetAddress.cs" />
+    <Compile Include="Interfaces\IParseResult.cs" />
     <Compile Include="ParseResultDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -63,23 +80,20 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ParseResult.cs" />
+    <Compile Include="Models\ParseResult.cs" />
     <Compile Include="Service References\Personator\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="OutputStreetAddress.cs" />
-    <Compile Include="DataCleaner.cs" />
+    <Compile Include="Models\OutputStreetAddress.cs" />
+    <Compile Include="DataCleaner\DataCleaner.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="MelissaCodes.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -116,6 +130,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataClean.Repository\DataClean.Repository.csproj">
+      <Project>{05984e8e-cf26-4200-a15b-f45e0ef4ce76}</Project>
+      <Name>DataClean.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

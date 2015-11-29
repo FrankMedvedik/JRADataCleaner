@@ -1,13 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean", "DataCleaner\DataClean.csproj", "{0E725976-76C4-4C29-AA8A-28D020C0F2BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05984E8E-CF26-4200-A15B-F45E0EF4CE76} = {05984E8E-CF26-4200-A15B-F45E0EF4CE76}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCleanConsole", "DataCleanerConsoleApplication\DataCleanConsole.csproj", "{3B9939BA-5FD8-44E5-A5A5-AD0A66C76E86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCleanUI", "DataCleanerUI\DataCleanUI.csproj", "{9DDE01D6-08C5-419E-A0D4-644B62496774}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean.Repository", "DataClean.Repository\DataClean.Repository.csproj", "{05984E8E-CF26-4200-A15B-F45E0EF4CE76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean.Test", "DataClean.Test\DataClean.Test.csproj", "{4989340E-43F1-4AAD-A769-5669C0D97FA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +34,14 @@ Global
 		{9DDE01D6-08C5-419E-A0D4-644B62496774}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DDE01D6-08C5-419E-A0D4-644B62496774}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DDE01D6-08C5-419E-A0D4-644B62496774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05984E8E-CF26-4200-A15B-F45E0EF4CE76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05984E8E-CF26-4200-A15B-F45E0EF4CE76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05984E8E-CF26-4200-A15B-F45E0EF4CE76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05984E8E-CF26-4200-A15B-F45E0EF4CE76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4989340E-43F1-4AAD-A769-5669C0D97FA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4989340E-43F1-4AAD-A769-5669C0D97FA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4989340E-43F1-4AAD-A769-5669C0D97FA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4989340E-43F1-4AAD-A769-5669C0D97FA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

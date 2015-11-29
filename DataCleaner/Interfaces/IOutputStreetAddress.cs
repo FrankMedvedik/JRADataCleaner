@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using DataClean.Models;
 
-namespace DataClean
+namespace DataClean.Interfaces
 {
     public interface IOutputStreetAddress : IDataErrorInfo
     {
@@ -53,6 +54,7 @@ namespace DataClean
         string Gender { get; set; }
         string Gender2 { get; set; }
         string HouseholdIncome { get; set; }
+        int ID { get; set; }
         string Latitude { get; set; }
         string LengthOfResidence { get; set; }
         string Longitude { get; set; }
@@ -83,8 +85,10 @@ namespace DataClean
         string PresenceOfChildren { get; set; }
         string PrivateMailBox { get; set; }
         string RecordExtras { get; set; }
-        IParseResult[] Results { get; set; }
-        IParseResult[] Errors { get; }
+        List<ParseResult> Results { get; set; }
+        List<ParseResult> Errors { get; }
+        List<ParseResult> Warnings { get; }
+        List<ParseResult> Informational { get; }
         string Salutation { get; set; }
         string State { get; set; }
         string StateName { get; set; }
@@ -92,7 +96,10 @@ namespace DataClean
         string TopLevelDomain { get; set; }
         string UTC { get; set; }
         string UrbanizationName { get; set; }
-        Boolean AddressOk { get; set; }
+        Boolean OkPhone { get; }
+        Boolean OkEmailAddress { get; }
+        Boolean OkMailingAddress { get; }
+
         string ToString();
     }
 }
