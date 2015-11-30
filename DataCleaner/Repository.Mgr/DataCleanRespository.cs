@@ -23,7 +23,7 @@ namespace DataClean.Repository.Mgr
 
             // get archive from database if exists if not return null
             // handle json to object conversion
-            var row = _ctx.DataCleanEventLogs.Find(id);
+            var row = _ctx.DataCleanEventLogs.FindAsync(id).Result;
             if (row == null) return null;
             var logEntry = JsonConvert.DeserializeObject<DataCleanEvent>(row.DataCleanEventJson);
             return logEntry;

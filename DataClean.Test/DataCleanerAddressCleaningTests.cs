@@ -1,10 +1,6 @@
-﻿using System;
-using System.Linq;
-using DataClean.Models;
-using DataClean.Repository.Mgr;
-using DataClean.Repository;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DataClean.Models;
 using System.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataClean.Test
 {

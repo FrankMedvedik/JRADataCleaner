@@ -123,5 +123,28 @@ namespace DataClean.Test
             Assert.IsTrue(e.Output.OkEmailAddress);
         }
 
+
+
+        [TestMethod]
+        public void CleanListTest()
+        {
+            List<InputStreetAddress> l = new List<InputStreetAddress>();
+            l.Add(TestData.BadEmailToClean);
+            l.Add(TestData.BadFirstNameToClean);
+            l.Add(TestData.BadLastNameToClean);
+            l.Add(TestData.BadPhoneToClean);
+            l.Add(TestData.GoodAddresstoClean);
+            l.Add(TestData.MissingStateToClean);
+            l.Add(TestData.BadPostalCodetoClean);
+            
+            var e = _dataCleanEventFactory.ValidateAddresses(l);
+            Assert.IsTrue(e.Count(x => x.Output.OkComplete) == 3);
+            Assert.IsTrue(e.Count(x => x.Output.OkComplete == false) == 4);
+            foreach (var v in e)
+            {
+                Assert.IsTrue(v.Output.ID == v.Input.ID);
+            }
+        }
+
     }
 }

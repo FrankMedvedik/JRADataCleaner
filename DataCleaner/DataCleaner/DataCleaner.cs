@@ -98,23 +98,23 @@ namespace DataClean.DataCleaner
         //    }
         //}
 
-        public List<DataCleanEvent> VerifyAndCleanAddress(List<InputStreetAddress> inputAddresses)
-        {
-            List<DataCleanEvent> dcel = new List<DataCleanEvent>();
-            var output = VerifyAndCleanAddress(inputAddresses.ToArray());
+        //public List<DataCleanEvent> VerifyAndCleanAddress(List<InputStreetAddress> inputAddresses)
+        //{
+        //    List<DataCleanEvent> dcel = new List<DataCleanEvent>();
+        //    var output = VerifyAndCleanAddress(inputAddresses.ToArray());
 
-            throw new NotImplementedException();
-            //    oreach (var i in inputAddresses)
-            //{
-            //    var dce = new DataCleanEvent()
-            //    {
-            //        Input = i
-            //    };
+        //    throw new NotImplementedException();
+        //    //    oreach (var i in inputAddresses)
+        //    //{
+        //    //    var dce = new DataCleanEvent()
+        //    //    {
+        //    //        Input = i
+        //    //    };
 
-            //    dcel.Add(dce);
-            //}
+        //    //    dcel.Add(dce);
+        //    //}
 
-        }
+        //}
 
         public Boolean VerifyAndCleanAddress(InputStreetAddress inA, out OutputStreetAddress outA)
         {
