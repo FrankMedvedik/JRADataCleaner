@@ -14,9 +14,16 @@ namespace DataClean
 {
     public class ParseResultDictionary : Dictionary<string, ParseResult>
     {
+
+        public const string AUTOFIX_CITY_CODE = "AC03";
+        public const string AUTOFIX_STATE_CODE = "AC02";
+        public const string AUTOFIX_POSTAL_CODE = "AC01";
+        public static readonly string[] AUTOFIX_STREET_ADDRESS_CODES = new string[] {"AC09","AC10","AC11","AC12","AC13","AC14","AC15","AC16","AC17","AC18","AC19","AC20"};
+        public static readonly string AUTOFIX_STREET_ADDRESS_CODE = "AC10";
         public const string VALID_STREET_ADDRESS_CODE = "AS01";
         public const string VALID_EMAIL_ADDRESS_CODE = "ES01";
-        public const string VALID_PHONE_CODE = "PS01";
+        public const string VALID_10_PHONE_CODE = "PS01";
+        public const string VALID_7_PHONE_CODE = "PS02";
         public static string NEW_POSTAL_CODE = "AC01";
         public static string NEW_STATE_CODE = "AC02";
         public String DictionaryFileName { get; set; }
@@ -77,7 +84,8 @@ namespace DataClean
         public static readonly ParseResult[] VALID_ADDRESS_RESULTS_LIST =
         {
             new ParseResult() {Code = VALID_EMAIL_ADDRESS_CODE},
-            new ParseResult() {Code = VALID_PHONE_CODE},
+            new ParseResult() {Code = VALID_10_PHONE_CODE},
+            new ParseResult() {Code = VALID_7_PHONE_CODE},
             new ParseResult() {Code = VALID_STREET_ADDRESS_CODE}
         };
             

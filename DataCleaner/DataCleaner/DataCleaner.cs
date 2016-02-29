@@ -128,8 +128,7 @@ namespace DataClean.DataCleaner
         public OutputStreetAddress[] VerifyAndCleanAddress(InputStreetAddress[] inputAddressArray)
         {
             var o = new List<OutputStreetAddress>();
-
-            // add logic to handle arrays of any size...
+            
             int i = 0;
             int arrayOffset = 0;
 

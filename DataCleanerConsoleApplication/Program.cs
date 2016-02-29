@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using log4net;
 using log4net.Config;
 using DataClean;
+using DataClean.Models;
+using DumpCleaner;
+using MoreLinq;
+using Respondent.Repository;
 
 namespace ConsoleApplication1
 {
@@ -13,84 +19,46 @@ namespace ConsoleApplication1
 
         private static void Main(string[] args)
         {
-            XmlConfigurator.Configure();
-            PrintAllMessages();
-            Console.ReadKey();
-            //var i = new InputStreetAddress()
-            //{
-            //    AddressLine1 = "502 grant ave",
-            //    //City = "Willow Grove",
-            //    Country = "USA",
-            //    PostalCode = "190452",
-            //    FullName = "frank medvedik",
-            //    //State = "PA"
-            //};
-            //var c = ConfigurationManager.AppSettings;
-            //var w = new DataCleaner(c);
+            var db = new Respondent.Repository.respondentEntities();
+            DataCleanCriteria criteria = new DataCleanCriteria();
+            criteria.AutoFixCity = true;
+            criteria.AutoFixState = true;
+            criteria.AutoFixPostalCode = true;
+            criteria.AutoFixAddressLine1 = true;
+            criteria.ForceValidation = true;
+            int cnt = 0;
 
-            ///* 
-            // * process one record             
-            // */
-            //try
-            //{
-            //    OutputStreetAddress o;
-            //    var b = w.VerifyAndCleanAddress(i, out o);
-            //    {
-            //        Logger.Debug("status: " + b);
-            //        foreach (var pe in o.Results)
-            //        {
-            //            Logger.Debug("Error " + pe.ToString());
-            //        }
-            //    }
+            var a = (from s in db.dr_sunshine_dump where(!db.fjm_sunshine_dump.Any(es => (es.tran_id == s.tran_id))) select s);
 
-            //    i.PostalCode = "";
-            //    var inArray = new[] { i };
+            //var a = db.dr_sunshine_dump.Where(x=>x.tran_id in (select tran_id from fjm_sunshine_dump). ToList();
+            foreach (var dirtyVouchers in a.Batch(50).ToList())
+            {
+                var cleanVouchers = DataCleanDumpSvc.CleanAddresses(dirtyVouchers.ToList(), criteria);
+                foreach (var c in cleanVouchers.ToList())
+                {
+                    var existingone = db.fjm_sunshine_dump.Find(c.tran_id);
+                    if(existingone != null)
+                        Console.WriteLine("{0} already on file {1}", c.tran_id, DateTime.Now.ToLongTimeString());
+                    else
+                        db.fjm_sunshine_dump.Add(c);
+                }
+                cnt += cleanVouchers.Count;
+                try
+                {
+                    db.SaveChanges();
 
-            //    /* 
-            //    * process arrary of records             
-            //    */
-
-            //    var outArray = w.VerifyAndCleanAddress(inArray);
-            //    foreach (var oRec in outArray)
-            //    {
-            //        Logger.Debug("Output Record: " + oRec.ToString());
-            //        foreach (var r in outArray)
-            //        {
-            //            Logger.Debug("output Record: " + r.ToString());
-            //            foreach (var pe in r.Results)
-            //            {
-            //                Logger.Debug("Error " + pe.ToString());
-            //            }
-            //        }
-            //    }
-            //}
-            //catch(Exception e)
-            //{
-            //    Logger.Error(e.ToString());
-            //}
+                    Console.WriteLine("{0} batch saved {1}", DateTime.Now.ToLongTimeString(), cnt);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("{0} batch save failed {1}", DateTime.Now.ToLongTimeString(), e.Message) ;
+                    var z = db.GetValidationErrors();
+                    Console.WriteLine("{0} batch save failed {1} {2}", DateTime.Now.ToLongTimeString(), e.Message, e.InnerException.Message ?? "");
+                }
+            }
+            Console.WriteLine("DONE! {0} processed", cnt);
         }
 
-        public void PrintAllPossibleErrors()
-        {
-            /*
-             * dictionary utilities 
-             */
-
-            var p = new ParseResultDictionary();
-
-            Console.WriteLine(
-                "List all parse response fatal errors where the address is not good enough to send mail to");
-            foreach (var a in p.GetAllFatalErrors())
-                Console.WriteLine(a.ToString());
-    
-        }
-        public static void PrintAllMessages()
-        {
-            var p = new ParseResultDictionary();
-            Console.WriteLine("List all parse response messages");
-            foreach (var a in p.GetAllMessages())
-                Console.WriteLine(a.ToString());
-        }
-
-    }
+     }
 }
+

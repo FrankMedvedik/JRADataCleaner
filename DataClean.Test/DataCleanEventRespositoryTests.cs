@@ -27,12 +27,18 @@ namespace DataClean.Test
                 Input = TestData.GoodAddresstoClean,
                 DataCleanDate = testTime,
                 Output = _goodOutputStreetAddress
+
             };
+            // if the output id does not match it will not resolve correctly when we combine the two after datacleaner is done
+            //
+            e.Output.ID = e.ID;
 
             var id = e.ID;
             db.SaveEvent(e);
             var d = db.GetEvent(e.ID);
             Assert.IsTrue(d.ID == e.ID);
+            Assert.IsTrue(d.Output.ID == e.ID);
+            Assert.IsTrue(d.Output.ID == e.Input.ID);
             Assert.IsTrue(d.DataCleanDate == testTime);
         }
         [TestMethod]
@@ -44,7 +50,7 @@ namespace DataClean.Test
                 Input = TestData.GoodAddresstoClean
                 //DataCleanDate = DateTime.Now  
 
-               // We dont want to save an event with out a data clean date! 
+               // We dont want to save an event without a data clean date! 
             };
             var id = e.ID;
             try
@@ -54,6 +60,28 @@ namespace DataClean.Test
             catch( Exception ex)
             {
                 Assert.IsTrue(ex.Message.Contains("date"));
+            }
+        }
+
+        [TestMethod]
+        public void CantSaveOutputDoesNotMatchInputTest()
+        {
+            var db = new DataCleanRespository();
+            var e = new DataCleanEvent()
+            {
+                Input = TestData.GoodAddresstoClean,
+                DataCleanDate = DateTime.Now,
+                 Output = _goodOutputStreetAddress
+            };
+            // output id does not match input
+            var id = e.ID;
+            try
+            {
+                db.SaveEvent(e);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains("id"));
             }
         }
 

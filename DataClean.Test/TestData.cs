@@ -23,7 +23,7 @@ namespace DataClean.Test
         };
         public static  InputStreetAddress BadStreetAddressToClean = new InputStreetAddress()
         {
-            //AddressLine1 = "2005 par drive",
+            AddressLine1 = "2005",
             City = "Doylestown",
             State = "PA",
             PostalCode = "18901",
@@ -33,10 +33,32 @@ namespace DataClean.Test
             LastName = "medvedik"
         };
 
-        public static  InputStreetAddress BadPostalCodetoClean = new InputStreetAddress()
+        public static InputStreetAddress MissingCityToClean = new InputStreetAddress()
+        {
+            AddressLine1 = "2005 par",
+            //City = "Doylestown",
+            State = "PA",
+            PostalCode = "18901",
+            EmailAddress = "fmedvedik@gmail.com",
+            PhoneNumber = "2159181557",
+            FirstName = "frank",
+            LastName = "medvedik"
+        };
+        public static InputStreetAddress BadPostalCodetoClean = new InputStreetAddress()
         {
             AddressLine1 = "2005 par drive",
             City = "Doylestown",
+            State = "PA",
+            //PostalCode = "",
+            EmailAddress = "fmedvedik@gmail.com",
+            PhoneNumber = "2159181557",
+            FirstName = "frank",
+            LastName = "medvedik"
+        };
+        public static  InputStreetAddress BadCityAndPostalCodetoClean = new InputStreetAddress()
+        {
+            AddressLine1 = "2005 par drive",
+            //City = "Doylestown",
             State = "PA",
             //PostalCode = "",
             EmailAddress = "fmedvedik@gmail.com",
@@ -64,7 +86,7 @@ namespace DataClean.Test
             State = "PA",
             PostalCode = "18901",
             EmailAddress = "fmedvedik@gmail.com",
-            PhoneNumber = "0123456789",
+            PhoneNumber = "01234569",
             FirstName = "frank",
             LastName = "medvedik"
         };
@@ -107,5 +129,16 @@ namespace DataClean.Test
             LastName = "987"
         };
 
+        public static InputStreetAddress OKCompleteAddresstoClean = new InputStreetAddress()
+            {
+            AddressLine1 = "2005 par drive",
+            City = "Doylestown",
+            State = "PA",
+            PostalCode = "18901",
+            EmailAddress = "fmedvedik@gmail.com",
+            PhoneNumber = "2159181557",
+            FirstName = "frank",
+            LastName = "medvedik"
+        };
     }
 }

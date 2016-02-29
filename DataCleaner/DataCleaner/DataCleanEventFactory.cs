@@ -12,38 +12,55 @@ namespace DataClean.DataCleaner
     {
         private DataCleaner _dataCleaner;
         private Repository.Mgr.DataCleanRespository _dataCleanRepository;
+        private DataCleanCriteria _criteria;
 
-        public DataCleanEventFactory(DataCleaner dataCleaner, Repository.Mgr.DataCleanRespository dataCleanRepository)
+        public DataCleanEventFactory(DataCleaner dataCleaner, Repository.Mgr.DataCleanRespository dataCleanRepository, DataCleanCriteria criteria)
         {
             _dataCleaner = dataCleaner;
             _dataCleanRepository = dataCleanRepository;
 
+            // if we get bad data clean criteruia use the defaults (no fixes and no force) 
+            if (criteria != null) _criteria = criteria;
+            _criteria = new DataCleanCriteria()
+            {
+                AutoFixAddressLine1 = false,
+                AutoFixCity = false,
+                AutoFixPostalCode = true,
+                AutoFixState = false,
+                ForceValidation = false
+            };
+
         }
 
-        public  DataCleanEvent ValidateAddress(InputStreetAddress input, bool forceValidation = false)
+        public  DataCleanEvent ValidateAddress(InputStreetAddress input)
         {
 
             DataCleanEvent e;
             OutputStreetAddress output;
-            if (forceValidation == false)
+            if (_criteria.ForceValidation == false)
             {
                 e = _dataCleanRepository.GetEvent(input.ID);
                 if (e != null) return e;
             }
+            //if (_datacleaner == null)
+            //    _dataCleaner = new DataCleaner();
             var b = _dataCleaner.VerifyAndCleanAddress(input, out output);
             e = new DataCleanEvent() {Input = input, DataCleanDate = DateTime.Now, Output = output};
             if (b) _dataCleanRepository.SaveEvent(e);
             return e;
         }
 
-        public List<DataCleanEvent> ValidateAddresses(List<InputStreetAddress> inputAddressList,
-            bool forceValidation = false)
+        public DataCleanEvent GetExistingEvent(int id)
+        {
+                return _dataCleanRepository.GetEvent(id);
+        }
+        public List<DataCleanEvent> ValidateAddresses(List<InputStreetAddress> inputAddressList)
         {
             List<InputStreetAddress> toBeCleaned = new List<InputStreetAddress>();
             List<DataCleanEvent> results = new List<DataCleanEvent>();
             foreach (var i in inputAddressList)
             {
-                if (forceValidation == false)
+                if (_criteria.ForceValidation == false)
                 {
                     var e = _dataCleanRepository.GetEvent(i.ID);
                     if (e != null) results.Add(e);
@@ -54,16 +71,27 @@ namespace DataClean.DataCleaner
                     toBeCleaned.Add(i);
                 }
             }
-            var outArray = _dataCleaner.VerifyAndCleanAddress(toBeCleaned.ToArray());
-            List<DataCleanEvent> newEvents = CombineOutputsAndInputs(toBeCleaned, outArray);
-            foreach (var e in newEvents)
+            if (toBeCleaned.Any())
             {
-                /* ONLY SAVE PERFECT OUTPUT */
-                if(e.Output.OkComplete)
-                    _dataCleanRepository.SaveEvent(e);
+                var outArray = _dataCleaner.VerifyAndCleanAddress(toBeCleaned.ToArray());
+                List<DataCleanEvent> newEvents = CombineOutputsAndInputs(toBeCleaned, outArray);
+                foreach (var e in newEvents)
+                {
+                    /* ONLY SAVE PERFECT OUTPUT */
+                    if (e.Output.OkComplete)
+                        _dataCleanRepository.SaveEvent(e);
+                }
+                results.AddRange(newEvents);
             }
-            results.AddRange(newEvents);
-            return results;
+            return ApplyAutomaticFixes(results);
+        }
+
+        private List<DataCleanEvent> ApplyAutomaticFixes(List<DataCleanEvent> results)
+        {
+            AutoFixer A = new AutoFixer(_criteria);
+            A.DataCleanEvents = results;
+            A.ApplyFixes();
+            return A.DataCleanEvents;
         }
 
         private List<DataCleanEvent> CombineOutputsAndInputs(List<InputStreetAddress> toBeCleaned,OutputStreetAddress[] outArray)

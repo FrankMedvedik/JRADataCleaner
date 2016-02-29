@@ -5,6 +5,7 @@ namespace DataClean.Models
 {
     public class ParseResult : IParseResult 
     {
+        public static string AUTOFIX =>"Autofix";
         public String Code { get; set; }
         public String ShortDescription { get; set; }
         public bool AlternateAddressExists { get; set; }

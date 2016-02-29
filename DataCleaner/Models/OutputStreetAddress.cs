@@ -86,11 +86,10 @@ namespace DataClean.Models
         public string PrivateMailBox { get; set; }
         public string RecordExtras { get; set; }
         public List<ParseResult> Results { get; set; }
-        public string aaaResultsAsString {
-            get
-            {
-                return Results.Aggregate("", (current, r) => current + (r.ToString() + Environment.NewLine));
-            }
+
+        public string aaaResultsAsString
+        {
+            get { return Results.Aggregate("", (current, r) => current + (r.ToString() + Environment.NewLine)); }
         }
 
         public string Salutation { get; set; }
@@ -100,38 +99,48 @@ namespace DataClean.Models
         public string TopLevelDomain { get; set; }
         public string UTC { get; set; }
         public string UrbanizationName { get; set; }
-        public Boolean OkComplete { get { return OkMailingAddress && OkEmailAddress && OkPhone && !Errors.Any(); } }
-        public Boolean OkMailingAddress {
-            get
-            {
-                return (Results.Any(x => x.Code == ParseResultDictionary.VALID_STREET_ADDRESS_CODE) && (!HasNewPostalCode || !HasNewStateCode)); 
-                
-            }
+
+        public Boolean OkComplete
+        {
+            get { return OkMailingAddress && OkEmailAddress && OkPhone; }
+        }
+
+        public Boolean OkMailingAddress
+        {
+            get { return (Results.Any(x => x.Code == ParseResultDictionary.VALID_STREET_ADDRESS_CODE)); }
         }
 
         public Boolean HasNewPostalCode
         {
-            get
-            {
-                return (Results.Any(x => x.Code == ParseResultDictionary.NEW_POSTAL_CODE));
-
-            }
+            get { return (Results.Any(x => x.Code == ParseResultDictionary.NEW_POSTAL_CODE)); }
         }
+
         public Boolean HasNewStateCode
         {
+            get { return (Results.Any(x => x.Code == ParseResultDictionary.NEW_STATE_CODE)); }
+        }
+
+        public Boolean OkEmailAddress
+        {
+            get { return (Results.Any(x => x.Code == ParseResultDictionary.VALID_EMAIL_ADDRESS_CODE)); }
+        }
+
+        public Boolean OkPhone
+        {
             get
             {
-                return (Results.Any(x => x.Code == ParseResultDictionary.NEW_STATE_CODE));
-
+                return
+                    (Results.Any(
+                        x =>
+                            x.Code == ParseResultDictionary.VALID_10_PHONE_CODE ||
+                            x.Code == ParseResultDictionary.VALID_7_PHONE_CODE));
             }
         }
 
-        public Boolean OkEmailAddress { get { return (Results.Any(x => x.Code == ParseResultDictionary.VALID_EMAIL_ADDRESS_CODE)); } } 
-
-        public Boolean OkPhone { get { return (Results.Any(x => x.Code == ParseResultDictionary.VALID_PHONE_CODE)); } }
-        public  string SuggestedAddress()
+        public string SuggestedAddress()
         {
-            return string.Format("{0} {1} {2} {3} {4} {5}",  NameFull, AddressLine1, AddressLine2, City, State, PostalCode);
+            return string.Format("{0} {1} {2} {3} {4} {5}", NameFull, AddressLine1, AddressLine2, City, State,
+                PostalCode);
         }
 
         public string this[string columnName]
@@ -141,50 +150,52 @@ namespace DataClean.Models
 
         public string Error
         {
-            get
-            {
-                return Errors.ToString();
-            }
+            get { return Errors.ToString(); }
         }
+
         public string Warning
         {
-            get
-            {
-                return Warnings.ToString();
-            }
+            get { return Warnings.ToString(); }
         }
 
         public string ParseResults
         {
-            get
-            {
-                return Results.ToString();
-            }
+            get { return Results.ToString(); }
         }
-        
+
+        public List<ParseResult> AutoFixes
+        {
+            get { return Results.Where(x => x.Type == ParseResult.AUTOFIX).ToList(); }
+        }
 
         public List<ParseResult> Errors
         {
-            get
-            {
-                return Results.Where(x => x.Type == ParseResult.ERROR).ToList();
-            }
+            get { return Results.Where(x => x.Type == ParseResult.ERROR).ToList(); }
         }
 
         public List<ParseResult> Warnings
         {
-            get
-            {
-                return Results.Where(x => x.Type == ParseResult.WARN).ToList(); 
-            }
+            get { return Results.Where(x => x.Type == ParseResult.WARN).ToList(); }
         }
 
         public List<ParseResult> Informational
         {
+            get { return Results.Where(x => x.Type == ParseResult.INFO).ToList(); }
+        }
+
+        public bool HasAutoFixes => AutoFixes.Count > 0;
+
+        public bool HasNewStreetAddressLine1
+        {
             get
             {
-                return Results.Where(x => x.Type == ParseResult.INFO).ToList(); }
+                var v = (Results.Select(x => x.Code).Intersect(ParseResultDictionary.AUTOFIX_STREET_ADDRESS_CODES));
+                return v.Count() == 0;
             }
-
+        }
+        public bool HasNewCity
+        {
+            get { return (Results.Any(x => x.Code == ParseResultDictionary.AUTOFIX_CITY_CODE)); }
+        }
     }
-   }
+}

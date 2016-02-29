@@ -6,14 +6,7 @@ namespace DataClean.Models
     public class InputStreetAddress : IInputStreetAddress
     {
 
-        public int ID
-        {
-            get
-            {
-                return HashHelperSvc.GetHashCode(State, City, PostalCode, AddressLine1, AddressLine2,
-                    EmailAddress, PhoneNumber, LastName, FirstName);
-            }
-        }
+        public int ID {get; set;}
 
         public string RecordID { get { return ID.ToString(); } }
         public string AddressLine1 { get; set; }

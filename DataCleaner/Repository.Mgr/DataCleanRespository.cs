@@ -42,6 +42,7 @@ namespace DataClean.Repository.Mgr
                 if (e.Output == null) throw new Exception("Bad DataClean output - dataclean output needed for event to be saved");
                 if (e.Output.Results== null) throw new Exception("Bad DataClean output results - dataclean output must contain results to be saved. was DataClener run on the event? ");
                 if (e.Output.Errors.Any()) throw new Exception("Bad DataClean output - dataclean output must not contain errors to be saved");
+                if (e.Output.ID != e.Input.ID) throw new Exception("Bad address match - dataclean output id must match input id");
 
                 var a = new DataCleanEventLog()
                 {

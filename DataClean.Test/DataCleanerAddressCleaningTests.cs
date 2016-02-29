@@ -34,7 +34,7 @@ namespace DataClean.Test
         {
             OutputStreetAddress results = new OutputStreetAddress();
             var b = _dataCleaner.VerifyAndCleanAddress(TestData.BadPostalCodetoClean, out results);
-            Assert.IsFalse(b);
+            Assert.IsTrue(results.OkMailingAddress);
             Assert.IsTrue(results.HasNewPostalCode);
             Assert.IsTrue(results.OkPhone);
             Assert.IsTrue(results.OkEmailAddress);
@@ -58,11 +58,24 @@ namespace DataClean.Test
         {
             OutputStreetAddress results = new OutputStreetAddress();
             var b = _dataCleaner.VerifyAndCleanAddress(TestData.MissingStateToClean, out results);
-            Assert.IsFalse(b);
+            Assert.IsTrue(b);
             Assert.IsTrue(results.OkPhone);
             Assert.IsTrue(results.OkEmailAddress);
             Assert.IsTrue(results.OkMailingAddress);
         }
+
+
+        [TestMethod]
+        public void CleanCityAndPostalCodeAddressTest()
+        {
+            OutputStreetAddress results = new OutputStreetAddress();
+            var b = _dataCleaner.VerifyAndCleanAddress(TestData.BadCityAndPostalCodetoClean, out results);
+            Assert.IsFalse(b);
+            Assert.IsTrue(results.OkPhone);
+            Assert.IsTrue(results.OkEmailAddress);
+            Assert.IsFalse(results.OkMailingAddress);
+        }
+
 
         [TestMethod]
         public void CleanBadPhoneAddressTest()
