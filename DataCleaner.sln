@@ -16,9 +16,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean.Repository", "Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean.Test", "DataClean.Test\DataClean.Test.csproj", "{4989340E-43F1-4AAD-A769-5669C0D97FA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean.Web", "..\coopcheck\DataClean.Web\DataClean.Web.csproj", "{D1F26558-0ABB-4374-B9D7-658143D8C69A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean.Web", "DataClean.Web\DataClean.Web.csproj", "{D1F26558-0ABB-4374-B9D7-658143D8C69A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean.Web.Tests", "..\coopcheck\DataClean.Web.Tests\DataClean.Web.Tests.csproj", "{5823128B-51DF-42B9-ACE5-B57F1A50D5DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClean.Web.Tests", "DataClean.Web.Tests\DataClean.Web.Tests.csproj", "{5823128B-51DF-42B9-ACE5-B57F1A50D5DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

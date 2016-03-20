@@ -98,14 +98,6 @@
     <None Include="Service References\Personator\ServicemdContactVerifySOAP.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Documents\Visual Studio 2015\Projects\CoopCheckDataClean.Console\DumpCleaner\DumpCleaner.csproj">
-      <Project>{3ce48209-dfcf-44ad-84fd-749b26f69c01}</Project>
-      <Name>DumpCleaner</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Documents\Visual Studio 2015\Projects\CoopCheckDataClean.Console\Respondent.Repository\Respondent.Repository.csproj">
-      <Project>{ee944b1c-c9bb-4f22-85d5-83c076148424}</Project>
-      <Name>Respondent.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataCleaner\DataClean.csproj">
       <Project>{0e725976-76c4-4c29-aa8a-28d020c0f2bf}</Project>
       <Name>DataClean</Name>
