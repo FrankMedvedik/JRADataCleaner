@@ -63,7 +63,7 @@ namespace DataClean.DataCleaner
                 if (_criteria.ForceValidation == false)
                 {
                     var e = _dataCleanRepository.GetEvent(i.ID);
-                    if (e != null) results.Add(e);
+                    if (e != null) results.Add(MergeInandOutReq(i, e));
                     else toBeCleaned.Add(i);
                 }
                 else
@@ -78,7 +78,7 @@ namespace DataClean.DataCleaner
                 foreach (var e in newEvents)
                 {
                     /* ONLY SAVE PERFECT OUTPUT */
-                    if (e.Output.OkComplete)
+                    if (!e.Output.Errors.Any())
                         _dataCleanRepository.SaveEvent(e);
                 }
                 results.AddRange(newEvents);
@@ -86,10 +86,21 @@ namespace DataClean.DataCleaner
             return ApplyAutomaticFixes(results);
         }
 
+        private DataCleanEvent MergeInandOutReq(InputStreetAddress inAddress, DataCleanEvent outEvent)
+        {
+            var e = new DataCleanEvent
+            {
+                DataCleanDate = outEvent.DataCleanDate,
+                Input = inAddress,
+                Output = outEvent.Output
+            };
+            e.Output.RecordID = e.Input.RecordID;
+            return e;
+        }
+
         private List<DataCleanEvent> ApplyAutomaticFixes(List<DataCleanEvent> results)
         {
-            AutoFixer A = new AutoFixer(_criteria);
-            A.DataCleanEvents = results;
+            AutoFixer A = new AutoFixer(_criteria) {DataCleanEvents = results};
             A.ApplyFixes();
             return A.DataCleanEvents;
         }
@@ -103,7 +114,7 @@ namespace DataClean.DataCleaner
             {
                 var e = new DataCleanEvent();
                 //find related output assign to local var
-                var oc = outArray.First(obj => obj.ID == i.ID);
+                var oc = outArray.First(obj => obj.RecordID == i.RecordID);
                 if (oc != null)
                 {
                     e.DataCleanDate = DateTime.Now;

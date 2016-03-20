@@ -7,6 +7,7 @@ namespace DataClean.Models
 {
     public class OutputStreetAddress : IOutputStreetAddress
     {
+        public string RecordID { get; set; }
         public string AddressDeliveryInstallation { get; set; }
         public string AddressExtras { get; set; }
         public string AddressHouseNumber { get; set; }
@@ -190,7 +191,7 @@ namespace DataClean.Models
             get
             {
                 var v = (Results.Select(x => x.Code).Intersect(ParseResultDictionary.AUTOFIX_STREET_ADDRESS_CODES));
-                return v.Count() == 0;
+                return !v.Any();
             }
         }
         public bool HasNewCity

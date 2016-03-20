@@ -1,4 +1,5 @@
-﻿using DataClean.Interfaces;
+﻿using System;
+using DataClean.Interfaces;
 using DataClean.Services;
 
 namespace DataClean.Models
@@ -7,8 +8,7 @@ namespace DataClean.Models
     {
 
         public int ID {get; set;}
-
-        public string RecordID { get { return ID.ToString(); } }
+        public string RecordID { get; set; } 
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string City { get; set; }

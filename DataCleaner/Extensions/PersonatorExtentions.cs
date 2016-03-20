@@ -15,7 +15,7 @@ namespace DataClean.Personator
 
         public RequestRecord(IInputStreetAddress a)
         {
-            RecordID = a.RecordID;
+            RecordID = a.RecordID + "|" + a.ID;
             AddressLine1 = a.AddressLine1;
             AddressLine2 = a.AddressLine2;
             City = a.City;

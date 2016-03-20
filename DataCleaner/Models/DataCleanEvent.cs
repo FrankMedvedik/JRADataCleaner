@@ -20,7 +20,14 @@ namespace DataClean.Models
                 _dataCleanDate = value;
             }
         }
-
+        public string RecordID
+        {
+            get
+            {
+                if (Input == null) return string.Empty;
+                return Input.RecordID;
+            }
+        }
         public int ID
         {
             get
@@ -29,7 +36,7 @@ namespace DataClean.Models
                 return Input.ID;
             }
         }
-
+ 
         public bool HasBeenDataCleaned
         {
             get { return DataCleanDate != DateTime.MinValue; }
@@ -37,7 +44,6 @@ namespace DataClean.Models
 
         public InputStreetAddress Input { get; set; }
         public OutputStreetAddress Output { get; set; }
-
-
+    
     }
 }

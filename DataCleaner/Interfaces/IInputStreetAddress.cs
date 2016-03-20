@@ -1,9 +1,11 @@
+using System;
+
 namespace DataClean.Interfaces
 {
     public interface IInputStreetAddress
     {
-        int ID { get; }
-        string RecordID { get;  }
+        int ID { get; } // this is the unq composite hash for the address
+        string  RecordID { get; set; } // this is the unq key for the entire data record since address may appear more than once
         string AddressLine1 { get; set; }
         string AddressLine2 { get; set; }
         string City { get; set; }

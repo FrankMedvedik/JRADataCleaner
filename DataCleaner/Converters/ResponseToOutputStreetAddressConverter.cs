@@ -62,7 +62,6 @@ namespace DataClean.Converters
                 Gender = respRec.Gender,
                 Gender2 = respRec.Gender2,
                 HouseholdIncome = respRec.HouseholdIncome,
-                ID = (int)Int32.Parse(respRec.RecordID),
                 Latitude = respRec.Latitude,
                 LengthOfResidence = respRec.LengthOfResidence,
                 Longitude = respRec.Longitude,
@@ -102,11 +101,18 @@ namespace DataClean.Converters
                 UTC = respRec.UTC,
                 UrbanizationName = respRec.UrbanizationName
             };
-            
+
+            var i = SetIDS(respRec.RecordID);
+            o.RecordID = i[0];
+            o.ID = (int) int.Parse(i[1]);
             return o;
         }
+    private static string[] SetIDS(string recordId)
+    {
+        return recordId.Split('|');
+    }
 
-        private static bool SetAddressOk(OutputStreetAddress outputStreetAddress)
+    private static bool SetAddressOk(OutputStreetAddress outputStreetAddress)
         {
          if(outputStreetAddress.Errors.Count() != 0) return false;
             return true;
