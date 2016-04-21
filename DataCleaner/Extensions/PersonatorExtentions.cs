@@ -11,7 +11,7 @@ namespace DataClean.Personator
 {
     public partial class RequestRecord 
     {
-        private InputStreetAddress i;
+        
 
         public RequestRecord(IInputStreetAddress a)
         {
