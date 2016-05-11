@@ -71,6 +71,10 @@ namespace DataClean.DataCleaner
                     toBeCleaned.Add(i);
                 }
             }
+
+            Console.WriteLine("Number of vouchers to clean " + toBeCleaned.Count);
+            Console.WriteLine("Number of vouchers pulled from repository " + results.Count);
+
             if (toBeCleaned.Any())
             {
                 var outArray = _dataCleaner.VerifyAndCleanAddress(toBeCleaned.ToArray());
