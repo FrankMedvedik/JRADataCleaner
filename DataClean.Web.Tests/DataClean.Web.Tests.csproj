@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -98,9 +99,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DataCleanControllerTests.cs" />
+    <Compile Include="Controllers\DataCleanWebTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
     <Compile Include="TestData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,13 +112,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\coopcheck\CoopCheck.Web\CoopCheck.Web.csproj">
+      <Project>{9f9f1506-6f1b-4f46-8af1-bd9d95bf37fa}</Project>
+      <Name>CoopCheck.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\jradatacleaner\DataCleaner\DataClean.csproj">
       <Project>{0e725976-76c4-4c29-aa8a-28d020c0f2bf}</Project>
       <Name>DataClean</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataClean.Web\DataClean.Web.csproj">
-      <Project>{d1f26558-0abb-4374-b9d7-658143d8c69a}</Project>
-      <Name>DataClean.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

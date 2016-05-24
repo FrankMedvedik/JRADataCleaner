@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DataClean.Models;
-using DataClean.Web.Controllers;
+using CoopCheck.Web.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataClean.Web.Tests.Controllers
@@ -15,16 +15,16 @@ namespace DataClean.Web.Tests.Controllers
             throw new NotImplementedException();
         }
 
-        [TestMethod()]
-        public void GetTest()
-        {
-            List<InputStreetAddress> l = new List<InputStreetAddress>();
-            l.Add(TestData.GoodAddresstoClean);
-            var controller = new DataCleanController();
-            var result = controller.Get(l);
-            Assert.AreEqual(result.StatusCode, System.Net.HttpStatusCode.OK);
+        //[TestMethod()]
+        //public void GetTest()
+        //{
+        //    List<InputStreetAddress> l = new List<InputStreetAddress>();
+        //    l.Add(TestData.GoodAddresstoClean);
+        //    var controller = new DataCleanEventController();
+        //    var result = controller.Get(l);
+        //    Assert.AreEqual(result.StatusCode, System.Net.HttpStatusCode.OK);
 
-        }
+        //}
 
     }
 }

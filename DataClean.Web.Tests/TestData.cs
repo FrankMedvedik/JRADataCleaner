@@ -1,4 +1,5 @@
-﻿using DataClean.Models;
+﻿using System.Collections.Generic;
+using DataClean.Models;
 
 namespace DataClean.Web.Tests
 {
@@ -135,5 +136,9 @@ namespace DataClean.Web.Tests
             FirstName = "frank",
             LastName = "medvedik"
         };
+
+        public static List<InputStreetAddress> InputAddresList
+            = new List<InputStreetAddress>()
+            {OKCompleteAddresstoClean, MissingStateToClean, BadLastNameToClean, BadFirstNameToClean, BadEmailToClean};
     }
 }
